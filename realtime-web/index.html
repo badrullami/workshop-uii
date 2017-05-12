@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Workshop UII</title>
+</head>
+<body>
+
+<table border="1" style="width:100%" id="sample-table-1">
+	<tr>
+		<th>UUID</th>
+		<th>Major</th>
+		<th>Minor</th>
+		<th>IsEnterState</th>
+		<th>Timestamp</th>
+	</tr>
+</table>
+
+<script src="assets/jquery.min.js"></script>
+<script src="assets/browserMqtt.js"></script>
+
+<script type="text/javascript">
+    var client = mqtt.connect('tcp://lenscoop.com:9001');
+    client.on('connect', function () {
+      console.log('connect');
+      client.subscribe('uii')
+    });
+    client.on("message", function(topic, payload) {
+        
+        console.log(payload.toString());
+        var beaconItem = JSON.parse(payload.toString());
+        var isEnterState = (beaconItem.isEnterState) ? 'ENTER':'EXIT';
+        var timestamp = new Date(beaconItem.unixTime * 1000);
+        timestamp.setHours(timestamp.getHours() - 7);
+
+       
+        $('#sample-table-1').append('<tr><td>'+beaconItem.uuid+'</td><td>'+beaconItem.major+'</td><td>'+beaconItem.minor +'</td><td>'+isEnterState+'</td><td>'+timestamp+'</td></tr>')
+
+    });
+</script>
+</body>
+</html>

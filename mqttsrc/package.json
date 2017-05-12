@@ -1,0 +1,14 @@
+{
+  "name": "mqttsrc",
+  "version": "1.0.0",
+  "description": "this is mqtt for listening service in workshop uii",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mohammad Badrullami",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^2.7.1"
+  }
+}
